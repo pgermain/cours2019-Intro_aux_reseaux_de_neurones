@@ -22,7 +22,7 @@ def show_1d_function(fct, min_val=-5, max_val=5, step=.1, constante_x=None, cons
     if constante_y is not None:
         plt.plot([constante_y, constante_y], [min(fct_values),max(fct_values)], 'k--')    
 
-def show_2d_function(fct, min_val=-5, max_val=5, mesh_step=.01, bar=True, ax=None, **kwargs):
+def show_2d_function(fct, min_val=-5, max_val=5, mesh_step=.01, optimal=None, bar=True, ax=None, **kwargs):
     x1_min, x2_min = np.ones(2) * min_val
     x1_max, x2_max = np.ones(2) * max_val
     
@@ -40,6 +40,9 @@ def show_2d_function(fct, min_val=-5, max_val=5, mesh_step=.01, bar=True, ax=Non
     if bar:
         plt.colorbar()
         
+    if optimal is not None: 
+        plt.scatter(*optimal, s=200, marker='*', c='r')
+
 def show_2d_dataset(x, y, ax=None):
     set_current_axes(ax)
     labels = np.unique(y)
@@ -81,9 +84,27 @@ def show_2d_vector_field(grad_fct, min_val=-5, max_val=5, mesh_step=.5, ax=None,
     grad_values = np.array([[grad_fct(np.array((x1,x2))) for x1 in x1_values] for x2 in x2_values])
 
     set_current_axes(ax)
-    plt.quiver(x1_values, x2_values, grad_values[:,:,0], grad_values[:,:,1],  **kwargs)
+    plt.quiver(x1_values, x2_values, grad_values[:,:,0], grad_values[:,:,1], **kwargs)
     plt.xlim((x1_min, x1_max))
     plt.ylim((x2_min, x2_max))
+
+# Graphique de la trajectoire de descente en gradient
+def show_2d_trajectory(w_list, fct, min_val=-5, max_val=5, mesh_step=.5, w_opt=None, ax=None):
+    show_2d_function(fct, min_val, max_val, mesh_step, optimal=w_opt, ax=ax) 
+    
+    if len(w_list) > 0:
+        trajectory = np.array(w_list)
+        plt.plot(trajectory[:,0], trajectory[:,1], 'o--', c='g')
+    
+    plt.title('Trajectoire de la descente en gradient'); plt.xlabel('$w_1$'); plt.ylabel('$w_2$')
+
+# Graphique des valeurs de la fonction objectif lors de l'apprentissage
+def show_learning_curve(obj_list, obj_opt=None, ax=None):
+    set_current_axes(ax)
+    plt.plot(obj_list, 'o--', c='g', label='$F(\mathbf{w})$')
+    if obj_opt is not None: plt.plot([0, len(obj_list)], 2*[obj_opt], '*--', c='r', label='optimal');
+    plt.title('Valeurs de la fonction objectif'); plt.xlabel('$t$')
+    plt.legend()
     
 def code_button():
     from IPython.display import HTML
