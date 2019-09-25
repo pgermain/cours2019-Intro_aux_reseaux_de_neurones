@@ -1,3 +1,6 @@
+# Auteur: Pascal Germain, 2019
+# Matériel du cours: http://chercheurs.lille.inria.fr/pgermain/neurones2019/index.html
+
 from matplotlib import pyplot as plt
 import numpy as np
 
