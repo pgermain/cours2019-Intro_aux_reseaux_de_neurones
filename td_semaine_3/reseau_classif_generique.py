@@ -10,21 +10,20 @@ from copy import deepcopy
 
 class ReseauClassifGenerique:
     """ Classe destinée en encapsuler une architecture de réseau de neurones pour la classification 
-    multi-classes. L'apprentissage est effectué par descente de gradient stochastique avec «minibatch»,
+    multi-classe. L'apprentissage est effectué par descente de gradient stochastique avec «minibatch»,
     et il est possible de déterminer l'arrêt de l'optimisation par «early stopping».
 
     Paramètres
     ----------
-    modele: Objet contenant l'architecture du réseau de neurones à optimiser. Doit contenir les
-                  méthodes propagation(self, x, apprentissage) et parametres(self).
-    eta, alpha: Parametres de la descente en gradient stochastique (taille du gradient et momentum)
-    nb_epoques: Nombre d'époques maximum de la descente en gradient stochastique 
-    taille_batch: Nombre d'exemples pour chaque «minibatch»
+    modele: Objet contenant l'architecture du réseau de neurones à optimiser. 
+    eta, alpha: Parametres de la descente en gradient stochastique (taille du gradient et momentum).
+    nb_epoques: Nombre d'époques maximum de la descente en gradient stochastique.
+    taille_batch: Nombre d'exemples pour chaque «minibatch».
     fraction_validation: Fraction (entre 0.0 à 1.0) des exemples d'apprentissage à utiliser pour
                          créer un ensemble de validation pour le «early stopping».
                          Par défaut fraction_validation=None et il n'y a pas de «early stopping».
     patience: Paramètre de patience pour le «early stopping».
-    seed: Germe du générateur de nombres aléatoires
+    seed: Germe du générateur de nombres aléatoires.
     """
     def __init__(self, modele, eta=0.4, alpha=0.1, nb_epoques=10, taille_batch=32, 
                  fraction_validation=0.2, patience=10, seed=None):
