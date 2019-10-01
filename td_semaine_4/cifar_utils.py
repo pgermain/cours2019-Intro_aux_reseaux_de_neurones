@@ -4,7 +4,6 @@ import torch
 from torchvision.utils import make_grid
 import zipfile
 import imageio
-from copy import deepcopy
 
 def charger_cifar(repertoire, etiquettes=None, max_par_etiquettes=None):
     """Charger l'ensemble de données CIFAR
