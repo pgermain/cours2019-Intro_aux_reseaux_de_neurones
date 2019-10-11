@@ -44,8 +44,9 @@ class ReseauClassifGenerique:
         
     def _trace(self, obj, erreur_train, erreur_valid):
         self.liste_objectif.append(obj.item())    
-        self.liste_erreur_train.append(erreur_train.item())        
-        self.liste_erreur_valid.append(erreur_valid.item()) 
+        self.liste_erreur_train.append(erreur_train.item())
+        if self.fraction_validation is not None:
+            self.liste_erreur_valid.append(erreur_valid.item()) 
         
     def apprentissage(self, x, y):
         if self.seed is not None:
